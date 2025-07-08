@@ -26,6 +26,7 @@ combined = ChainMap(dict1, dict2, dict3)
 print(combined['b'])  # Output: 2 (from dict1, not dict2)
 print(combined['c'])  # Output: 30 
 print(combined['a'])  # Output: 30 
+
 # ---------------------------------------------------
 # Usecase 2:  Local Variable Scope Simulation
 from collections import ChainMap
