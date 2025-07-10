@@ -1,10 +1,15 @@
-def logger(func):
-    def wrapper(*args, **kwargs):
-        print(f"Calling {func.__name__}")
-        return func(*args, **kwargs)
-    return wrapper
+import asyncio
 
-@logger
-def greet(name):
-    print(f"Hello, {name}")
-greet("greet")
+async def say_hello():
+    print("Hello")
+    await asyncio.sleep(1)
+    print("World!")
+
+async def main():
+    await asyncio.gather(
+        say_hello(),
+        say_hello()
+    )
+
+loop = asyncio.get_event_loop()
+loop.run_until_complete(main())

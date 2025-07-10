@@ -15,6 +15,30 @@ for i in range(10):
 
 squares = [i ** 2 for i in range(10)]
 
+# 2.1 Use __slots__
+"""
+The __slots__ declaration in Python is a way to explicitly declare data members (attributes) for a class. 
+It restricts the creation of instance attributes to a fixed set and can reduce memory usage and speed up attribute access — especially important in large-scale or performance-critical code.
+"""
+import sys
+
+class NoSlots:
+    def __init__(self):
+        self.a = 1
+        self.b = 2
+class WithSlots:
+    __slots__ = ('a', 'b')
+    def __init__(self):
+        self.a = 1
+        self.b = 2
+no_slots = NoSlots()
+with_slots = WithSlots()
+print("Without __slots__:", sys.getsizeof(no_slots))
+print("With __slots__   :", sys.getsizeof(with_slots))
+# Without __slots__: 56
+# With __slots__   : 40
+
+
 #3 Hardcoding File Paths
 from pathlib import Path
 path = Path.home() / "Documents" / "script.py"
@@ -110,3 +134,17 @@ with pjsip_library() as lib:
     # You can register an account, make calls, etc.
     # This is just an example placeholder:
     print("Do SIP operations here...")
+
+# 14 Use descriptors
+# refer python file seperately
+
+# Use metaclases   to enforce design rules, metaclasses
+class Meta(type):
+    def __new__(cls, name, bases, dct):
+        dct['id'] = 123
+        return super().__new__(cls, name, bases, dct)
+
+class MyClass(metaclass=Meta):
+    pass
+
+print(MyClass.id)  # 123
